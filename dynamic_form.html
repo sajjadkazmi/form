@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+<style type="text/css" media="screen">
+	table{
+		margin: 0 auto;
+
+	}
+	td{
+		padding: 10px;
+	}
+	input:not([type=radio]),textarea,select{
+		padding: 10px 30px 10px 10px;
+		width: 100%;
+
+	}
+	input[type=submit]{
+		padding: 10px;
+		width: 70%;
+		background: #130613;
+		color: #ffffff;
+		border-radius: 5px;
+		font-weight: bolder;
+		/*width: 100%;*/
+
+	}
+	legend{
+		font-size: 25px;
+		background: #000000;
+		padding: 10px 20px;
+	}
+	label{
+		font-weight: bolder;
+	}
+
+</style>
+</head>
+<body>
+
+
+</body>
+<script type="text/javascript">
+	
+	var body=document.body;
+	var fieldset=document.createElement('fieldset');
+	var legend=document.createElement('legend');
+	var form=document.createElement('form');
+	form.setAttribute('action','javascript:void(0)');
+	var table=document.createElement('table');		
+	
+	
+	var labels=['First Name','Last Name','Gender','Age','Phone','Email','Address',''];
+	var inputTypes=['text','text','radio','date','number','email','','submit']
+	var genderlabel=['Male','Female'];
+
+	for(var i=0;i<labels.length;i++)
+	{
+		var tableRows=document.createElement('tr');
+		table.appendChild(tableRows);
+		for(var j=0;j<2;j++){
+		var tableCol=document.createElement('td');
+		tableRows.appendChild(tableCol);
+		if(j===0){
+		var label=document.createElement('label');
+		tableCol.appendChild(label);
+		}else{
+		label.innerText=labels[i];
+		if(i==6){
+		var input=document.createElement('textarea');	
+		}else{
+			if(inputTypes[i]==='radio'){
+				for(var genders=0;genders<2;genders++){
+				var input=document.createElement('input');
+				 tableCol.appendChild(input);
+				 input.setAttribute('type',inputTypes[i]);
+				 input.setAttribute('id',labels[i].toLowerCase().replace(' ',''));
+				input.setAttribute('placeholder',labels[i]);
+				input.setAttribute('value',genderlabel[genders].toLowerCase());
+				input.setAttribute('name',labels[i].toLowerCase().replace(' ',''));
+				input.setAttribute('required','required');
+				var genderText=document.createElement('span');
+				tableCol.appendChild(genderText);
+				genderText.innerText=genderlabel[genders]+' ';
+				}
+			}else{
+					var input=document.createElement('input');
+					input.setAttribute('required','required');
+				}			
+		}
+		if(inputTypes[i]!=='radio'){
+		tableCol.appendChild(input);
+		input.setAttribute('type',inputTypes[i]);
+		input.setAttribute('id',labels[i].toLowerCase().replace(' ',''));
+		input.setAttribute('placeholder',labels[i]);
+		input.setAttribute('required','required');
+		}
+		if(inputTypes[i]==='submit'){
+			input.setAttribute('onclick','mydata()');
+			input.setAttribute('value','Registration');
+		}
+		}
+
+		}
+	}
+
+	legend.innerText='REGISTRATION';
+	fieldset.style.width="500px";
+	fieldset.style.background="#e73cea";
+	legend.style.color="#ffffff";
+
+	
+
+
+	body.appendChild(fieldset);
+	fieldset.appendChild(legend);
+	fieldset.appendChild(form);
+	form.appendChild(table);
+
+
+function mydata(){
+	var gender_checked;
+	var userValue=[];
+	 var allData=document.getElementsByTagName('input');
+	  for(var x=0;x<allData.length;x++){
+	  	if(allData[x].name==='gender'){
+	  		if(allData[x].checked){
+	  			userValue[x]=allData[x].value;
+	  		}
+	  	}else{
+	  		userValue[x]=allData[x].value;
+	  		}
+
+	  }
+	  var address=document.getElementsByTagName('textarea')[0];
+	  userValue.push(address.value);
+	  	//console.log(gender_checked);
+	var userheading=document.createElement('h1');
+	body.appendChild(userheading);
+	userheading.innerText='USER DATA';
+	userheading.style.margin='30px';
+	userheading.style.textAlign='center';
+	var tableData=document.createElement('table');
+	body.appendChild(tableData);
+	tableData.setAttribute('border','1');	
+
+	var tableRow=document.createElement('tr');
+	tableData.appendChild(tableRow);
+
+	for(var n=0;n<labels.length-1;n++){
+	var tableCol=document.createElement('td');
+	tableRow.appendChild(tableCol);
+	tableCol.innerText=labels[n];
+	}
+	var tableRow=document.createElement('tr');
+	tableData.appendChild(tableRow);
+
+	for(var k=0;k<userValue.length;k++){
+
+		console.log(userValue[k]);
+	if(userValue[k]!=='Registration' && userValue[k]!==undefined){
+	var tableCol=document.createElement('td');
+	tableRow.appendChild(tableCol);
+	tableCol.innerText=userValue[k];
+	
+	}
+	
+	}
+}
+</script>
+</html>
